@@ -20,7 +20,7 @@ IDLE has the following features:
 
 * coded in 100% pure Python, using the :mod:`tkinter` GUI toolkit
 
-* cross-platform: works mostly the same on Windows, Unix, and Mac OS X
+* cross-platform: works mostly the same on Windows, Unix, and macOS
 
 * Python shell window (interactive interpreter) with colorizing
   of code input, output, and error messages
@@ -48,7 +48,7 @@ Output windows, such as used for Edit => Find in Files, are a subtype of editor
 window.  They currently have the same top menu but a different
 default title and context menu.
 
-On MacOS, there is one application menu.  It dynamically changes according
+On macOS, there is one application menu.  It dynamically changes according
 to the window currently selected.  It has an IDLE menu, and some entries
 described below are moved around to conform to Apple guidlines.
 
@@ -146,7 +146,7 @@ Go to Line
 
 Show Completions
    Open a scrollable list allowing selection of keywords and attributes. See
-   Completions in the Tips sections below.
+   :ref:`Completions <completions>` in the Editing and navigation section below.
 
 Expand Word
    Expand a prefix you have typed to match a full word in the same window;
@@ -154,10 +154,13 @@ Expand Word
 
 Show call tip
    After an unclosed parenthesis for a function, open a small window with
-   function parameter hints.
+   function parameter hints.  See :ref:`Calltips <calltips>` in the
+   Editing and navigation section below.
 
 Show surrounding parens
    Highlight the surrounding parenthesis.
+
+.. _format-menu:
 
 Format menu (Editor window only)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -232,6 +235,12 @@ View Last Restart
 Restart Shell
   Restart the shell to clean the environment.
 
+Previous History
+  Cycle through earlier commands in history which match the current entry.
+
+Next History
+  Cycle through later commands in history which match the current entry.
+
 Interrupt Execution
   Stop a running program.
 
@@ -267,30 +276,26 @@ Options menu (Shell and Editor)
 Configure IDLE
    Open a configuration dialog and change preferences for the following:
    fonts, indentation, keybindings, text color themes, startup windows and
-   size, additional help sources, and extensions (see below).  On OS X,
-   open the configuration dialog by selecting Preferences in the application
-   menu.  To use a new built-in color theme (IDLE Dark) with older IDLEs,
-   save it as a new custom theme.
+   size, additional help sources, and extensions.  On macOS,  open the
+   configuration dialog by selecting Preferences in the application
+   menu. For more, see
+   :ref:`Setting preferences <preferences>` under Help and preferences.
 
-   Non-default user settings are saved in a .idlerc directory in the user's
-   home directory.  Problems caused by bad user configuration files are solved
-   by editing or deleting one or more of the files in .idlerc.
-
-Code Context (toggle)(Editor Window only)
-   Open a pane at the top of the edit window which shows the block context
-   of the code which has scrolled above the top of the window.  Clicking a
-   line in this pane exposes that line at the top of the editor.
-
-Window menu (Shell and Editor)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Zoom Height
+Zoom/Restore Height
    Toggles the window between normal size and maximum height. The initial size
    defaults to 40 lines by 80 chars unless changed on the General tab of the
    Configure IDLE dialog.
 
-The rest of this menu lists the names of all open windows; select one to bring
-it to the foreground (deiconifying it if necessary).
+Show/Hide Code Context (Editor Window only)
+   Open a pane at the top of the edit window which shows the block context
+   of the code which has scrolled above the top of the window.  See
+   :ref:`Code Context <code-context>` in the Editing and Navigation section below.
+
+Window menu (Shell and Editor)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Lists the names of all open windows; select one to bring it to the foreground
+(deiconifying it if necessary).
 
 Help menu (Shell and Editor)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -310,8 +315,8 @@ Turtle Demo
    Run the turtledemo module with example Python code and turtle drawings.
 
 Additional help sources may be added here with the Configure IDLE dialog under
-the General tab. See the "Help sources" subsection below for more
-on Help menu choices.
+the General tab. See the :ref:`Help sources <help-sources>` subsection below
+for more on Help menu choices.
 
 .. index::
    single: Cut
@@ -324,7 +329,7 @@ on Help menu choices.
 Context Menus
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Open a context menu by right-clicking in a window (Control-click on OS X).
+Open a context menu by right-clicking in a window (Control-click on macOS).
 Context menus have the standard clipboard functions also on the Edit menu.
 
 Cut
@@ -359,6 +364,8 @@ Squeeze
    the code above and the prompt below down to a 'Squeezed text' label.
 
 
+.. _editing-and-navigation:
+
 Editing and navigation
 ----------------------
 
@@ -381,7 +388,7 @@ Key bindings
 ^^^^^^^^^^^^
 
 In this section, 'C' refers to the :kbd:`Control` key on Windows and Unix and
-the :kbd:`Command` key on Mac OSX.
+the :kbd:`Command` key on macOS.
 
 * :kbd:`Backspace` deletes to the left; :kbd:`Del` deletes to the right
 
@@ -429,7 +436,11 @@ to 4 spaces if they are there. :kbd:`Tab` inserts spaces (in the Python
 Shell window one tab), number depends on Indent width. Currently, tabs
 are restricted to four spaces due to Tcl/Tk limitations.
 
-See also the indent/dedent region commands in the edit menu.
+See also the indent/dedent region commands on the
+:ref:`Format menu <format-menu>`.
+
+
+.. _completions:
 
 Completions
 ^^^^^^^^^^^
@@ -475,6 +486,8 @@ much can be found by default, e.g. the re module.
 If you don't like the ACW popping up unbidden, simply make the delay
 longer or disable the extension.
 
+.. _calltips:
+
 Calltips
 ^^^^^^^^
 
@@ -503,6 +516,25 @@ In an editor, import statements have no effect until one runs the file.  One
 might want to run a file after writing the import statements at the top,
 or immediately run an existing file before editing.
 
+.. _code-context:
+
+Code Context
+^^^^^^^^^^^^
+
+Within an editor window containing Python code, code context can be toggled
+in order to show or hide a pane at the top of the window.  When shown, this
+pane freezes the opening lines for block code, such as those beginning with
+``class``, ``def``, or ``if`` keywords, that would have otherwise scrolled
+out of view.  The size of the pane will be expanded and contracted as needed
+to show the all current levels of context, up to the maximum number of
+lines defined in the Configure IDLE dialog (which defaults to 15).  If there
+are no current context lines and the feature is toggled on, a single blank
+line will display.  Clicking on a line in the context pane will move that
+line to the top of the editor.
+
+The text and background colors for the context pane can be configured under
+the Highlights tab in the Configure IDLE dialog.
+
 Python Shell window
 ^^^^^^^^^^^^^^^^^^^
 
@@ -526,9 +558,9 @@ code interactively.  IDLE's Shell window also responds to the following keys.
   Command history
 
   * :kbd:`Alt-p` retrieves previous command matching what you have typed. On
-    OS X use :kbd:`C-p`.
+    macOS use :kbd:`C-p`.
 
-  * :kbd:`Alt-n` retrieves next. On OS X use :kbd:`C-n`.
+  * :kbd:`Alt-n` retrieves next. On macOS use :kbd:`C-n`.
 
   * :kbd:`Return` while on any previous command retrieves that command
 
@@ -768,6 +800,8 @@ with the default subprocess if at all possible.
 Help and preferences
 --------------------
 
+.. _help-sources:
+
 Help sources
 ^^^^^^^^^^^^
 
@@ -788,15 +822,23 @@ that will be opened instead.
 Selected URLs can be added or removed from the help menu at any time using the
 General tab of the Configure IDLE dialog .
 
+.. _preferences:
+
 Setting preferences
 ^^^^^^^^^^^^^^^^^^^
 
 The font preferences, highlighting, keys, and general preferences can be
-changed via Configure IDLE on the Option menu.  Keys can be user defined;
-IDLE ships with four built-in key sets. In addition, a user can create a
-custom key set in the Configure IDLE dialog under the keys tab.
+changed via Configure IDLE on the Option menu.
+Non-default user settings are saved in a .idlerc directory in the user's
+home directory.  Problems caused by bad user configuration files are solved
+by editing or deleting one or more of the files in .idlerc.
 
-IDLE on MacOS
+On the Highlights and Keys tab, select a built-in or custom color theme
+and key set.  To use a newer built-in color theme or key set with older
+IDLEs, save it as a new custom theme or key set and it well be accessible
+to older IDLEs.
+
+IDLE on macOS
 ^^^^^^^^^^^^^
 
 Under System Preferences: Dock, one can set "Prefer tabs when opening

@@ -110,7 +110,7 @@ class _ProactorBasePipeTransport(transports._FlowControlMixin,
             self._force_close(exc)
 
     def _force_close(self, exc):
-        if self._empty_waiter is not None:
+        if self._empty_waiter is not None and not self._empty_waiter.done():
             if exc is None:
                 self._empty_waiter.set_result(None)
             else:
@@ -443,6 +443,11 @@ class _ProactorSocketTransport(_ProactorReadPipeTransport,
     """Transport for connected sockets."""
 
     _sendfile_compatible = constants._SendfileMode.TRY_NATIVE
+
+    def __init__(self, loop, sock, protocol, waiter=None,
+                 extra=None, server=None):
+        super().__init__(loop, sock, protocol, waiter, extra, server)
+        base_events._set_nodelay(sock)
 
     def _set_extra(self, sock):
         self._extra['socket'] = sock

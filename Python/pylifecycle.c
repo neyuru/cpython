@@ -523,6 +523,7 @@ done:
 char *
 _Py_SetLocaleFromEnv(int category)
 {
+    char *res;
 #ifdef __ANDROID__
     const char *locale;
     const char **pvar;
@@ -569,10 +570,12 @@ _Py_SetLocaleFromEnv(int category)
         }
     }
 #endif
-    return setlocale(category, utf8_locale);
-#else /* __ANDROID__ */
-    return setlocale(category, "");
-#endif /* __ANDROID__ */
+    res = setlocale(category, utf8_locale);
+#else /* !defined(__ANDROID__) */
+    res = setlocale(category, "");
+#endif
+    _Py_ResetForceASCII();
+    return res;
 }
 
 
@@ -1414,6 +1417,9 @@ new_interpreter(PyThreadState **tstate_p)
         PyDict_SetItemString(interp->sysdict, "modules", modules);
         _PySys_EndInit(interp->sysdict, &interp->config);
     }
+    else if (PyErr_Occurred()) {
+        goto handle_error;
+    }
 
     bimod = _PyImport_FindBuiltin("builtins", modules);
     if (bimod != NULL) {
@@ -1421,6 +1427,9 @@ new_interpreter(PyThreadState **tstate_p)
         if (interp->builtins == NULL)
             goto handle_error;
         Py_INCREF(interp->builtins);
+    }
+    else if (PyErr_Occurred()) {
+        goto handle_error;
     }
 
     /* initialize builtin exceptions */

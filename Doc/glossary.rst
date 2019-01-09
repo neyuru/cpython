@@ -108,8 +108,8 @@ Glossary
 
       This is an :term:`asynchronous iterator` which when called using the
       :meth:`__anext__` method returns an awaitable object which will execute
-      that the body of the asynchronous generator function until the
-      next :keyword:`yield` expression.
+      the body of the asynchronous generator function until the next
+      :keyword:`yield` expression.
 
       Each :keyword:`yield` temporarily suspends processing, remembering the
       location execution state (including local variables and pending
@@ -332,7 +332,7 @@ Glossary
       names, attribute access, operators or function calls which all return a
       value.  In contrast to many other languages, not all language constructs
       are expressions.  There are also :term:`statement`\s which cannot be used
-      as expressions, such as :keyword:`if`.  Assignments are also statements,
+      as expressions, such as :keyword:`while`.  Assignments are also statements,
       not expressions.
 
    extension module
@@ -444,8 +444,8 @@ Glossary
 
    generator expression
       An expression that returns an iterator.  It looks like a normal expression
-      followed by a :keyword:`for` expression defining a loop variable, range,
-      and an optional :keyword:`if` expression.  The combined expression
+      followed by a :keyword:`!for` clause defining a loop variable, range,
+      and an optional :keyword:`!if` clause.  The combined expression
       generates values for an enclosing function::
 
          >>> sum(i*i for i in range(10))         # sum of squares 0, 1, 4, ... 81
